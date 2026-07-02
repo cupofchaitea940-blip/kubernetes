@@ -13,7 +13,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
   resource_group_name = azurerm_resource_group.rg.name
   dns_prefix          = var.dns_prefix
 
-  kubernetes_version  = "1.30.0"
 
   default_node_pool {
     name                = "systempool"
