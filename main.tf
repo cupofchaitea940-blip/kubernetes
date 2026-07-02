@@ -1,7 +1,3 @@
-provider "azurerm" {
-  features {}
-}
-
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.location
@@ -13,16 +9,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
   resource_group_name = azurerm_resource_group.rg.name
   dns_prefix          = var.dns_prefix
 
-
   default_node_pool {
-    name                = "systempool"
-    node_count          = var.node_count
-    vm_size             = var.vm_size
-    os_disk_size_gb     = 30
-    type                = "VirtualMachineScaleSets"
-    auto_scaling_enabled = true
-    min_count           = 1
-    max_count           = 3
+    name            = "systempool"
+    node_count      = 1
+    vm_size         = "Standard_B2s"
+    os_disk_size_gb = 30
+    type            = "VirtualMachineScaleSets"
   }
 
   identity {
@@ -30,7 +22,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   network_profile {
-    network_plugin = "azure"
+    network_plugin    = "azure"
     load_balancer_sku = "standard"
   }
 
